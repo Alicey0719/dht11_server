@@ -1,20 +1,38 @@
-from flask import Flask, make_response, request
-#import RPi.GPIO as GPIO
-#import dht11
+from asyncore import loop
+from flask import Flask, make_response, jsonify
+from dotenv import load_dotenv
+import RPi.GPIO as GPIO
+import dht11
+import os
 import time
 import datetime
 
+load_dotenv()
+
+PIN = int(os.getenv('PIN'))
+sensor = dht11.DHT11(pin=PIN)
 app = Flask("dht11-server")
+
 
 @app.route("/")
 def responce_temp():
-    res = make_response()
-    
-    #データ作る
-    res.data = 'test'
+    #初期化
+    temp = 0.0
+    hum = 0.0
+    s_data = sensor.read()
+    loop_count = 0
 
-    res.mimetype = 'application/json' 
-    return res
+    # 値の取得
+    while True:
+        if s_data.is_valid():
+            temp = round(s_data.temperature, 2)
+            hum = round(s_data.humidity, 2)
+            return jsonify({'temp': str(temp), 'hum': str(hum)}), 200
+        else:
+            loop_count += 1
+            if loop_count > 100:
+                return jsonify({'message': 'Could not retrieve sensor data.'}), 500
+            continue
 
 
 def main():
