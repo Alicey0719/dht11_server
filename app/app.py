@@ -1,4 +1,3 @@
-from asyncore import loop
 from flask import Flask, jsonify
 from dotenv import load_dotenv
 import RPi.GPIO as GPIO
