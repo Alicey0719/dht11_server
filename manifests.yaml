@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: raspi-dht11-server
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: sensortype
+            operator: In
+            values:
+            - dht11
+  containers:
+    - name: raspi-dht11-server
+      image: alicey/raspi-dht11-server:latest
+      securityContext:
+        privileged: true
+      env:
+        - name: PIN
+          value: 23
