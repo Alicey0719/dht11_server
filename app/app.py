@@ -1,11 +1,10 @@
 from asyncore import loop
-from flask import Flask, make_response, jsonify
+from flask import Flask, jsonify
 from dotenv import load_dotenv
 import RPi.GPIO as GPIO
 import dht11
 import os
 import time
-import datetime
 
 load_dotenv()
 
@@ -14,7 +13,7 @@ GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BCM)
 
 PIN = int(os.getenv('PIN'))
-print("using PIN is ",PIN)
+print("Using PIN is", PIN)
 sensor = dht11.DHT11(pin=PIN)
 
 app = Flask("dht11-server")
