@@ -19,4 +19,4 @@ spec:
         privileged: true
       env:
         - name: PIN
-          value: 23
+          value: "23"
