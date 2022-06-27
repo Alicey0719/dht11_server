@@ -36,8 +36,9 @@ def responce_temp():
             return jsonify({'temp': str(temp), 'hum': str(hum)}), 200
         else:
             loop_count += 1
-            if loop_count > 100:
-                return jsonify({'message': 'Could not retrieve sensor data.'}), 500
+            time.sleep(0.05)
+            if loop_count > 100:                
+                return jsonify({'error': 'Could not retrieve sensor data.'}), 500
             continue
 
 
