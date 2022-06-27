@@ -10,6 +10,7 @@ import datetime
 load_dotenv()
 
 PIN = int(os.getenv('PIN'))
+print("using PIN is ",PIN)
 sensor = dht11.DHT11(pin=PIN)
 app = Flask("dht11-server")
 
