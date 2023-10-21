@@ -1,3 +1,3 @@
-flask==2.1.2
+flask==2.2.5
 python-dotenv
 RPi.GPIO
